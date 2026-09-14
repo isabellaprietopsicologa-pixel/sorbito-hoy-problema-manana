@@ -3,1541 +3,618 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Entrenamiento para Padres · Consumo Adolescente · Colombia</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Entrenamiento para Padres · Colombia</title>
 <style>
-  :root {
-    --verde: #1A7A4A;
-    --verde-claro: #E8F5EE;
-    --verde-medio: #2ECC71;
-    --amarillo: #F39C12;
-    --rojo: #E74C3C;
-    --azul: #2C3E7A;
-    --crema: #FDF9F3;
-    --cafe: #5D3A1A;
-    --gris: #6B7280;
-    --blanco: #FFFFFF;
-    --sombra: 0 4px 24px rgba(0,0,0,0.08);
-    --sombra-fuerte: 0 8px 40px rgba(0,0,0,0.15);
-    --radio: 16px;
-    --radio-sm: 8px;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--crema);
-    color: #1a1a2e;
-    overflow-x: hidden;
-  }
-
-  /* ── HERO ── */
-  .hero {
-    background: linear-gradient(135deg, #1a2744 0%, #2C3E7A 60%, #1A7A4A 100%);
-    color: white;
-    text-align: center;
-    padding: 80px 24px 60px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  }
-
-  .badge-top {
-    display: inline-block;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 50px;
-    padding: 6px 18px;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-    font-weight: 600;
-  }
-
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero h1 span { color: #7EE8A2; }
-
-  .hero p {
-    font-size: 1.1rem;
-    color: rgba(255,255,255,0.8);
-    max-width: 520px;
-    margin: 0 auto 36px;
-    line-height: 1.7;
-  }
-
-  .nivel-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 50px;
-    padding: 8px 20px;
-    font-size: 0.9rem;
-    margin: 0 6px 12px;
-    transition: all 0.2s;
-  }
-
-  .nivel-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #7EE8A2;
-  }
-
-  .btn-start {
-    display: inline-block;
-    background: white;
-    color: var(--azul);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    font-size: 1.05rem;
-    padding: 16px 40px;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    margin-top: 32px;
-    transition: all 0.25s;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  }
-
-  .btn-start:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-  }
-
-  /* ── PROGRESS BAR ── */
-  .progreso-container {
-    background: white;
-    padding: 20px 24px;
-    border-bottom: 1px solid #eee;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    display: none;
-  }
-
-  .progreso-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .progreso-label { font-size: 0.85rem; color: var(--gris); font-weight: 500; }
-  .progreso-pts { font-weight: 700; color: var(--verde); font-size: 1rem; }
-
-  .barra {
-    background: #E5E7EB;
-    border-radius: 50px;
-    height: 8px;
-    max-width: 800px;
-    margin: 0 auto;
-    overflow: hidden;
-  }
-
-  .barra-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--verde), var(--verde-medio));
-    border-radius: 50px;
-    transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    width: 0%;
-  }
-
-  /* ── SECCIONES ── */
-  .seccion {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 60px 24px;
-    display: none;
-  }
-
-  .seccion.activa { display: block; }
-
-  .nivel-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border-radius: 50px;
-    padding: 6px 16px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 16px;
-  }
-
-  .nivel-chip.n1 { background: #E8F5EE; color: var(--verde); }
-  .nivel-chip.n2 { background: #FEF3CD; color: #B7791F; }
-  .nivel-chip.n3 { background: #FEE2E2; color: var(--rojo); }
-  .nivel-chip.n4 { background: #EEF2FF; color: var(--azul); }
-
-  .seccion-titulo {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.6rem, 4vw, 2.4rem);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 16px;
-    color: #1a1a2e;
-  }
-
-  .seccion-intro {
-    font-size: 1.05rem;
-    color: var(--gris);
-    line-height: 1.8;
-    margin-bottom: 36px;
-    border-left: 3px solid var(--verde);
-    padding-left: 16px;
-  }
-
-  /* ── CARDS ── */
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-
-  .card {
-    background: white;
-    border-radius: var(--radio);
-    padding: 24px;
-    box-shadow: var(--sombra);
-    border: 1px solid #F3F4F6;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .card:hover { transform: translateY(-3px); box-shadow: var(--sombra-fuerte); }
-
-  .card-icon {
-    font-size: 2rem;
-    margin-bottom: 12px;
-    display: block;
-  }
-
-  .card h3 {
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 8px;
-    color: #1a1a2e;
-  }
-
-  .card p {
-    font-size: 0.9rem;
-    color: var(--gris);
-    line-height: 1.6;
-  }
-
-  /* ── ALERTA ── */
-  .alerta {
-    border-radius: var(--radio);
-    padding: 20px 24px;
-    margin-bottom: 24px;
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-  }
-
-  .alerta.info { background: #EFF6FF; border-left: 4px solid #3B82F6; }
-  .alerta.warn { background: #FFFBEB; border-left: 4px solid var(--amarillo); }
-  .alerta.danger { background: #FEF2F2; border-left: 4px solid var(--rojo); }
-  .alerta.exito { background: var(--verde-claro); border-left: 4px solid var(--verde); }
-
-  .alerta-icon { font-size: 1.4rem; flex-shrink: 0; }
-  .alerta-texto h4 { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
-  .alerta-texto p { font-size: 0.88rem; color: var(--gris); line-height: 1.5; }
-
-  /* ── QUIZ ── */
-  .quiz-card {
-    background: white;
-    border-radius: var(--radio);
-    padding: 32px;
-    box-shadow: var(--sombra);
-    margin-bottom: 24px;
-    border: 2px solid transparent;
-    transition: border-color 0.2s;
-  }
-
-  .quiz-pregunta {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: #1a1a2e;
-    line-height: 1.4;
-  }
-
-  .quiz-opciones { display: flex; flex-direction: column; gap: 10px; }
-
-  .opcion {
-    border: 1.5px solid #E5E7EB;
-    border-radius: var(--radio-sm);
-    padding: 14px 18px;
-    cursor: pointer;
-    font-size: 0.95rem;
-    transition: all 0.2s;
-    background: white;
-    text-align: left;
-    font-family: 'DM Sans', sans-serif;
-    color: #1a1a2e;
-  }
-
-  .opcion:hover { border-color: var(--verde); background: var(--verde-claro); }
-  .opcion.correcta { border-color: var(--verde); background: var(--verde-claro); color: var(--verde); font-weight: 600; }
-  .opcion.incorrecta { border-color: var(--rojo); background: #FEF2F2; color: var(--rojo); }
-  .opcion.deshabilitada { pointer-events: none; opacity: 0.6; }
-
-  .feedback-quiz {
-    margin-top: 16px;
-    padding: 14px 18px;
-    border-radius: var(--radio-sm);
-    font-size: 0.9rem;
-    font-weight: 500;
-    display: none;
-    line-height: 1.5;
-  }
-
-  .feedback-quiz.show { display: block; }
-  .feedback-quiz.ok { background: var(--verde-claro); color: var(--verde); }
-  .feedback-quiz.mal { background: #FEF2F2; color: var(--rojo); }
-
-  /* ── SCENARIO ── */
-  .scenario {
-    background: white;
-    border-radius: var(--radio);
-    overflow: hidden;
-    box-shadow: var(--sombra);
-    margin-bottom: 24px;
-  }
-
-  .scenario-header {
-    background: linear-gradient(90deg, var(--azul), #4A5BC4);
-    color: white;
-    padding: 20px 24px;
-  }
-
-  .scenario-header h3 { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
-  .scenario-header p { font-size: 0.85rem; opacity: 0.8; }
-
-  .scenario-body { padding: 24px; }
-
-  .dialogo {
-    background: #F9FAFB;
-    border-radius: var(--radio-sm);
-    padding: 16px;
-    margin-bottom: 16px;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #374151;
-    font-style: italic;
-    border-left: 3px solid #D1D5DB;
-  }
-
-  .dialogo strong { font-style: normal; color: var(--azul); }
-
-  /* ── RECURSOS ── */
-  .recurso-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px 20px;
-    background: white;
-    border-radius: var(--radio-sm);
-    margin-bottom: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    border: 1px solid #F3F4F6;
-    transition: transform 0.2s;
-  }
-
-  .recurso-item:hover { transform: translateX(4px); }
-
-  .recurso-icon-box {
-    width: 44px; height: 44px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    flex-shrink: 0;
-  }
-
-  .recurso-icon-box.verde { background: var(--verde-claro); }
-  .recurso-icon-box.azul { background: #EEF2FF; }
-  .recurso-icon-box.rojo { background: #FEF2F2; }
-
-  .recurso-txt h4 { font-weight: 700; font-size: 0.95rem; margin-bottom: 2px; }
-  .recurso-txt p { font-size: 0.82rem; color: var(--gris); }
-
-  /* ── BOTONES NAV ── */
-  .nav-btns {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 48px;
-    padding-top: 24px;
-    border-top: 1px solid #E5E7EB;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .btn {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 12px 28px;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-decoration: none;
-  }
-
-  .btn-prim {
-    background: var(--verde);
-    color: white;
-    box-shadow: 0 4px 16px rgba(26,122,74,0.3);
-  }
-
-  .btn-prim:hover { background: #155a38; transform: translateY(-1px); }
-  .btn-prim:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-  .btn-sec {
-    background: transparent;
-    color: var(--gris);
-    border: 1.5px solid #D1D5DB;
-  }
-
-  .btn-sec:hover { border-color: var(--verde); color: var(--verde); background: var(--verde-claro); }
-
-  /* ── GRADUACIÓN ── */
-  #seccion-graduacion {
-    text-align: center;
-    padding: 60px 24px 80px;
-    display: none;
-  }
-
-  #seccion-graduacion.activa { display: block; }
-
-  .grad-confetti {
-    font-size: 3rem;
-    margin-bottom: 24px;
-    display: block;
-    animation: bounce 1s infinite alternate;
-  }
-
-  @keyframes bounce {
-    from { transform: translateY(0); }
-    to { transform: translateY(-10px); }
-  }
-
-  .diploma {
-    background: white;
-    border-radius: 24px;
-    max-width: 600px;
-    margin: 0 auto 40px;
-    padding: 48px 40px;
-    box-shadow: 0 16px 64px rgba(0,0,0,0.12);
-    border: 3px solid var(--verde);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .diploma::before, .diploma::after {
-    content: '';
-    position: absolute;
-    width: 120px; height: 120px;
-    border-radius: 50%;
-    opacity: 0.06;
-  }
-
-  .diploma::before { background: var(--verde); top: -40px; left: -40px; }
-  .diploma::after { background: var(--azul); bottom: -40px; right: -40px; }
-
-  .diploma-sello {
-    width: 80px; height: 80px;
-    background: linear-gradient(135deg, var(--verde), #0A5C36);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 24px;
-    font-size: 2rem;
-    box-shadow: 0 8px 24px rgba(26,122,74,0.4);
-  }
-
-  .diploma h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: var(--gris);
-    margin-bottom: 8px;
-    font-weight: 400;
-  }
-
-  .diploma h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 5vw, 2.6rem);
-    color: #1a1a2e;
-    font-weight: 900;
-    margin-bottom: 20px;
-    line-height: 1.2;
-  }
-
-  .diploma-subtitulo {
-    font-size: 0.9rem;
-    color: var(--gris);
-    line-height: 1.6;
-    margin-bottom: 28px;
-  }
-
-  .puntuacion-grande {
-    font-size: 3.5rem;
-    font-weight: 900;
-    color: var(--verde);
-    font-family: 'Playfair Display', serif;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .puntuacion-label { font-size: 0.85rem; color: var(--gris); }
-
-  .estrellas { font-size: 2rem; margin: 16px 0; }
-
-  .logros-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
-    max-width: 600px;
-    margin: 0 auto 40px;
-  }
-
-  .logro {
-    background: white;
-    border-radius: var(--radio);
-    padding: 20px 16px;
-    text-align: center;
-    box-shadow: var(--sombra);
-    border: 1px solid #F3F4F6;
-  }
-
-  .logro-icon { font-size: 1.8rem; margin-bottom: 8px; display: block; }
-  .logro h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; color: #1a1a2e; }
-  .logro p { font-size: 0.75rem; color: var(--gris); }
-
-  .btn-compartir {
-    background: linear-gradient(135deg, var(--azul), #4A5BC4);
-    color: white;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    padding: 16px 40px;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 8px 24px rgba(44,62,122,0.35);
-    transition: all 0.25s;
-    display: inline-block;
-    margin: 0 8px 12px;
-  }
-
-  .btn-compartir:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(44,62,122,0.45); }
-
-  /* ── DIVIDER ── */
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 32px 0;
-    color: var(--gris);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .divider::before, .divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: #E5E7EB;
-  }
-
-  /* ── TABLA SEÑALES ── */
-  .tabla-senales {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 24px;
-    font-size: 0.9rem;
-  }
-
-  .tabla-senales th {
-    background: #F9FAFB;
-    padding: 12px 16px;
-    text-align: left;
-    font-weight: 700;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--gris);
-    border-bottom: 2px solid #E5E7EB;
-  }
-
-  .tabla-senales td {
-    padding: 12px 16px;
-    border-bottom: 1px solid #F3F4F6;
-    vertical-align: top;
-  }
-
-  .tabla-senales tr:last-child td { border-bottom: none; }
-
-  .tag {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 700;
-  }
-
-  .tag.leve { background: #D1FAE5; color: #065F46; }
-  .tag.moderado { background: #FEF3C7; color: #92400E; }
-  .tag.grave { background: #FEE2E2; color: #991B1B; }
-
-  /* ── HERO SECTION LABEL ── */
-  .hero-niveles {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 24px;
-  }
-
-  /* ── MINI MAPA DE NIVELES ── */
-  .mapa-niveles {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    flex-wrap: wrap;
-    margin: 40px auto;
-    max-width: 700px;
-  }
-
-  .nivel-nodo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-  }
-
-  .nivel-circulo {
-    width: 60px; height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    border: 3px solid #E5E7EB;
-    background: white;
-    transition: all 0.2s;
-    font-weight: 700;
-  }
-
-  .nivel-nodo.completado .nivel-circulo {
-    border-color: var(--verde);
-    background: var(--verde-claro);
-  }
-
-  .nivel-nodo.activo-nodo .nivel-circulo {
-    border-color: var(--azul);
-    background: #EEF2FF;
-    box-shadow: 0 0 0 4px rgba(44,62,122,0.15);
-  }
-
-  .nivel-nodo span { font-size: 0.72rem; color: var(--gris); font-weight: 600; text-align: center; max-width: 70px; }
-
-  .nivel-linea {
-    flex: 1;
-    height: 3px;
-    background: #E5E7EB;
-    min-width: 20px;
-    max-width: 60px;
-    transition: background 0.4s;
-  }
-
-  .nivel-linea.completada { background: var(--verde); }
-
-  /* ── ACIERTOS COUNTER ── */
-  .aciertos-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-  }
-
-  .acierto-stat {
-    text-align: center;
-    background: white;
-    border-radius: var(--radio);
-    padding: 16px 24px;
-    box-shadow: var(--sombra);
-    min-width: 100px;
-  }
-
-  .acierto-stat .num { font-size: 2rem; font-weight: 900; font-family: 'Playfair Display', serif; }
-  .acierto-stat .etq { font-size: 0.75rem; color: var(--gris); text-transform: uppercase; letter-spacing: 0.5px; }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 600px) {
-    .cards-grid { grid-template-columns: 1fr; }
-    .logros-grid { grid-template-columns: 1fr 1fr; }
-    .diploma { padding: 32px 24px; }
-  }
-
-  /* ── TOAST ── */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: #1a1a2e;
-    color: white;
-    padding: 14px 20px;
-    border-radius: 12px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    z-index: 9999;
-    transform: translateY(80px);
-    opacity: 0;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    max-width: 300px;
-    box-shadow: var(--sombra-fuerte);
-  }
-
-  .toast.visible { transform: translateY(0); opacity: 1; }
-
-  /* Animacion entrada secciones */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .seccion.activa { animation: fadeUp 0.4s ease; }
-
-  .input-nombre {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    padding: 12px 18px;
-    border: 1.5px solid #D1D5DB;
-    border-radius: 50px;
-    width: 100%;
-    max-width: 360px;
-    margin: 0 auto 16px;
-    display: block;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .input-nombre:focus { border-color: var(--verde); }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#fdf9f3;color:#1a1a2e}
+.oculto{display:none!important}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1a2744,#2c3e7a,#1a7a4a);color:#fff;text-align:center;padding:60px 20px 44px}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:50px;padding:5px 16px;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;font-weight:600}
+.hero h1{font-size:clamp(1.6rem,5vw,2.6rem);font-weight:900;line-height:1.15;margin-bottom:16px;max-width:540px;margin-left:auto;margin-right:auto}
+.hero h1 span{color:#7ee8a2}
+.hero p{font-size:14px;color:rgba(255,255,255,.8);max-width:400px;margin:0 auto 22px;line-height:1.7}
+.hero-chips{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;margin-bottom:22px}
+.chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:50px;padding:6px 14px;font-size:12px;color:#fff}
+.inp-nombre{font-family:inherit;font-size:14px;padding:10px 18px;border-radius:50px;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.15);color:#fff;outline:none;max-width:240px;width:100%;text-align:center;display:block;margin:0 auto 16px}
+.inp-nombre::placeholder{color:rgba(255,255,255,.6)}
+.btn-start{background:#fff;color:#1e3a8a;font-family:inherit;font-weight:700;font-size:15px;padding:13px 34px;border-radius:50px;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.2);transition:transform .2s}
+.btn-start:hover{transform:translateY(-2px)}
+
+/* CUERPO INICIO */
+.inicio-body{max-width:700px;margin:0 auto;padding:40px 20px 56px}
+.inicio-body h2{font-size:20px;text-align:center;margin-bottom:6px}
+.inicio-body>p{color:#6b7280;text-align:center;margin-bottom:30px;font-size:13px}
+.mapa{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:34px}
+.mapa-nodo{display:flex;flex-direction:column;align-items:center;gap:4px}
+.mapa-circulo{width:48px;height:48px;border-radius:50%;border:2px solid #e5e7eb;background:#fff;display:flex;align-items:center;justify-content:center;font-size:20px}
+.mapa-nodo span{font-size:10px;color:#6b7280;font-weight:600;text-align:center;max-width:54px}
+.mapa-linea{width:22px;height:3px;background:#e5e7eb;flex-shrink:0;margin-bottom:18px}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.card{background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,.06);border:1px solid #f3f4f6}
+.card-icon{font-size:24px;margin-bottom:8px}
+.card h3{font-size:13px;margin-bottom:5px}
+.card p{font-size:12px;color:#6b7280;line-height:1.55}
+
+/* BARRA */
+.barra-wrap{background:#fff;padding:12px 18px;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:100;box-shadow:0 2px 7px rgba(0,0,0,.05)}
+.barra-top{display:flex;justify-content:space-between;align-items:center;max-width:720px;margin:0 auto 7px}
+.barra-top span{font-size:12px;color:#6b7280;font-weight:500}
+.barra-pts{font-weight:700;color:#1a7a4a;font-size:14px}
+.barra-bg{background:#e5e7eb;border-radius:50px;height:6px;max-width:720px;margin:0 auto;overflow:hidden}
+.barra-fill{height:100%;background:linear-gradient(90deg,#1a7a4a,#2ecc71);border-radius:50px;width:0%;transition:width .5s}
+
+/* SECCION */
+.seccion{max-width:720px;margin:0 auto;padding:32px 18px 56px}
+.nivel-pill{display:inline-block;border-radius:50px;padding:5px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.seccion h2{font-size:clamp(1.3rem,4vw,1.85rem);font-weight:700;line-height:1.2;margin-bottom:12px}
+.seccion-intro{font-size:14px;color:#6b7280;line-height:1.75;margin-bottom:26px;padding-left:13px}
+
+/* ALERTAS */
+.alerta{border-radius:10px;padding:14px 18px;display:flex;gap:12px;margin-bottom:16px}
+.alerta-icon{font-size:18px;flex-shrink:0}
+.alerta strong{display:block;font-size:13px;margin-bottom:3px}
+.alerta p{font-size:12px;color:#6b7280;line-height:1.5}
+.alerta.info{background:#eff6ff;border-left:4px solid #3b82f6}
+.alerta.warn{background:#fffbeb;border-left:4px solid #f59e0b}
+.alerta.danger{background:#fef2f2;border-left:4px solid #ef4444}
+.alerta.ok{background:#ecfdf5;border-left:4px solid #1a7a4a}
+
+/* TABLA */
+.tabla-wrap{overflow-x:auto;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{padding:8px 12px;text-align:left;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#6b7280;border-bottom:2px solid #e5e7eb;background:#f9fafb}
+td{padding:8px 12px;border-bottom:1px solid #f3f4f6}
+.tag{padding:2px 8px;border-radius:50px;font-size:10px;font-weight:700}
+
+/* MINI CARDS */
+.mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:18px}
+.mini-card{background:#fff;border-radius:12px;padding:16px 14px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.mini-card .icon{font-size:22px;margin-bottom:8px}
+.mini-card strong{display:block;font-size:13px;margin-bottom:4px}
+.mini-card p{font-size:12px;color:#6b7280;line-height:1.5;margin:0}
+
+/* SCENARIO BOX */
+.scenario{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:18px}
+.scenario-head{background:linear-gradient(90deg,#1e3a8a,#4a5bc4);color:#fff;padding:14px 18px}
+.scenario-head strong{display:block;font-size:13px}
+.scenario-head span{font-size:11px;opacity:.8}
+.scenario-body{padding:18px}
+.dialogo{background:#f9fafb;border-radius:7px;padding:12px;margin-bottom:10px;font-size:12px;color:#374151;font-style:italic;border-left:3px solid #d1d5db;line-height:1.55}
+
+/* RECURSOS */
+.recurso{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#fff;border-radius:10px;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.recurso-icon{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.recurso strong{display:block;font-size:13px;margin-bottom:2px}
+.recurso span{font-size:11px;color:#6b7280}
+
+/* QUIZ */
+.quiz-sep{display:flex;align-items:center;gap:10px;margin:22px 0 14px;color:#6b7280;font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.quiz-sep::before,.quiz-sep::after{content:'';flex:1;height:1px;background:#e5e7eb}
+.quiz-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:12px}
+.quiz-card p{font-weight:700;font-size:14px;margin-bottom:14px;line-height:1.4}
+.opciones{display:flex;flex-direction:column;gap:8px}
+.opcion{border:1.5px solid #e5e7eb;border-radius:8px;padding:10px 14px;cursor:pointer;font-size:13px;text-align:left;background:#fff;color:#1a1a2e;font-family:inherit;width:100%;line-height:1.4;transition:all .15s}
+.opcion:hover:not(:disabled){border-color:#1a7a4a;background:#ecfdf5}
+.opcion.correcta{border-color:#1a7a4a!important;background:#ecfdf5!important;color:#1a7a4a!important;font-weight:600}
+.opcion.incorrecta{border-color:#ef4444!important;background:#fef2f2!important;color:#ef4444!important}
+.opcion:disabled{cursor:default;opacity:.7}
+.feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:12px;font-weight:500;line-height:1.5}
+.feedback.ok{background:#ecfdf5;color:#1a7a4a}
+.feedback.mal{background:#fef2f2;color:#ef4444}
+
+/* NAV */
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:34px;padding-top:18px;border-top:1px solid #e5e7eb;flex-wrap:wrap;gap:10px}
+.btn-sec{font-family:inherit;font-weight:600;font-size:13px;padding:10px 22px;border-radius:50px;border:1.5px solid #d1d5db;background:transparent;color:#6b7280;cursor:pointer;transition:all .2s}
+.btn-sec:hover{border-color:#1a7a4a;color:#1a7a4a;background:#ecfdf5}
+.btn-prim{font-family:inherit;font-weight:700;font-size:13px;padding:11px 26px;border-radius:50px;border:none;background:#1a7a4a;color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(26,122,74,.35);transition:all .2s}
+.btn-prim:hover{background:#155a38;transform:translateY(-1px)}
+
+/* GRADUACION */
+.grad-wrap{max-width:620px;margin:0 auto;padding:52px 18px 72px;text-align:center}
+.grad-emoji{font-size:44px;display:inline-block;animation:bob 1.4s infinite;margin-bottom:18px}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.diploma{background:#fff;border-radius:22px;padding:38px 28px;box-shadow:0 16px 52px rgba(0,0,0,.12);border:3px solid #1a7a4a;margin-bottom:28px}
+.diploma-sello{width:64px;height:64px;background:linear-gradient(135deg,#1a7a4a,#0a5c36);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:26px;box-shadow:0 8px 22px rgba(26,122,74,.4)}
+.diploma h3{font-size:14px;color:#6b7280;margin-bottom:4px;font-weight:400}
+.diploma h1{font-size:clamp(1.3rem,4vw,1.9rem);font-weight:900;margin-bottom:12px;line-height:1.2}
+.diploma-sub{font-size:12px;color:#6b7280;line-height:1.6;margin-bottom:20px}
+.diploma-stats{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:14px}
+.stat-num{font-size:38px;font-weight:900;line-height:1}
+.stat-lbl{font-size:10px;color:#6b7280;text-transform:uppercase;letter-spacing:.5px}
+.estrellas{font-size:24px;margin-bottom:8px}
+.diploma-footer{font-size:10px;color:#9ca3af;border-top:1px solid #f3f4f6;padding-top:10px;margin-top:4px}
+.logros-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;max-width:460px;margin:0 auto 28px}
+.logro{background:#fff;border-radius:12px;padding:14px 10px;box-shadow:0 2px 8px rgba(0,0,0,.06);text-align:center}
+.logro .lic{font-size:24px;margin-bottom:6px}
+.logro strong{display:block;font-size:12px;margin-bottom:3px}
+.logro span{font-size:10px;color:#6b7280}
+.mensaje-final{background:linear-gradient(135deg,#1a2744,#1a7a4a);border-radius:18px;padding:30px 22px;max-width:480px;margin:0 auto 28px;text-align:left;color:#fff}
+.mensaje-final p:first-child{font-size:15px;font-weight:700;margin-bottom:10px;line-height:1.3}
+.mensaje-final p:last-child{font-size:12px;opacity:.8;line-height:1.7}
+.grad-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-grad{font-family:inherit;font-weight:700;font-size:13px;padding:12px 24px;border-radius:50px;border:none;cursor:pointer;transition:all .2s}
+.btn-grad:hover{transform:translateY(-2px)}
+
+/* TOAST */
+.toast{position:fixed;bottom:18px;right:18px;background:#1a1a2e;color:#fff;padding:11px 17px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 8px 26px rgba(0,0,0,.25);max-width:260px;opacity:0;transform:translateY(20px);transition:all .3s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
 </style>
 </head>
 <body>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- BARRA DE PROGRESO -->
-<div class="progreso-container" id="barra-progreso">
-  <div class="progreso-header">
-    <span class="progreso-label" id="nivel-actual-label">Nivel 1 de 4</span>
-    <span class="progreso-pts" id="pts-label">0 puntos</span>
-  </div>
-  <div class="barra"><div class="barra-fill" id="barra-fill"></div></div>
-</div>
-
-<!-- ══════════════════════════════════════════════════
+<!-- ═══════════════════════════════
      PANTALLA INICIO
-══════════════════════════════════════════════════ -->
+═══════════════════════════════ -->
 <div id="pantalla-inicio">
   <div class="hero">
-    <div class="badge-top">🇨🇴 Colombia · Escuela para Padres</div>
+    <div class="hero-badge">🇨🇴 Colombia · Escuela para Padres</div>
     <h1>Guiar a tu hijo/a<br><span>empieza con saber.</span></h1>
-    <p>Un entrenamiento práctico en 4 niveles para padres que enfrentan el consumo de alcohol y sustancias en la adolescencia.</p>
-
-    <div class="hero-niveles">
-      <div class="nivel-badge"><div class="nivel-dot" style="background:#7EE8A2"></div> Nivel 1: Reconocer</div>
-      <div class="nivel-badge"><div class="nivel-dot" style="background:#FBD38D"></div> Nivel 2: Entender</div>
-      <div class="nivel-badge"><div class="nivel-dot" style="background:#FC8181"></div> Nivel 3: Actuar</div>
-      <div class="nivel-badge"><div class="nivel-dot" style="background:#90CDF4"></div> Nivel 4: Prevenir</div>
+    <p>4 niveles prácticos para padres que enfrentan el consumo de alcohol y sustancias en la adolescencia.</p>
+    <div class="hero-chips">
+      <div class="chip">🔍 Reconocer</div>
+      <div class="chip">🧠 Entender</div>
+      <div class="chip">💬 Hablar</div>
+      <div class="chip">🛡️ Prevenir</div>
     </div>
-
-    <div style="margin-top: 12px;">
-      <label style="font-size:0.9rem; color:rgba(255,255,255,0.7); display:block; margin-bottom:8px;">¿Cómo te llamas? (opcional)</label>
-      <input class="input-nombre" type="text" id="nombre-padre" placeholder="Tu nombre" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); color:white;" oninput="this.style.color='white'">
-    </div>
-
-    <button class="btn-start" onclick="iniciarEntrenamiento()">Empezar entrenamiento →</button>
+    <label style="font-size:12px;color:rgba(255,255,255,.7);display:block;margin-bottom:7px">¿Cómo te llamas? (opcional)</label>
+    <input class="inp-nombre" id="inp-nombre" type="text" placeholder="Tu nombre">
+    <br>
+    <button class="btn-start" onclick="comenzar()">Empezar entrenamiento →</button>
   </div>
 
-  <!-- MAPA VISUAL -->
-  <div style="max-width:860px; margin:0 auto; padding:48px 24px 60px; text-align:center;">
-    <h2 style="font-family:'Playfair Display',serif; font-size:1.5rem; margin-bottom:8px;">Tu recorrido hoy</h2>
-    <p style="color:var(--gris); font-size:0.95rem; margin-bottom:0;">4 niveles · Quizzes prácticos · Recursos colombianos · Diploma final</p>
-
-    <div class="mapa-niveles">
-      <div class="nivel-nodo">
-        <div class="nivel-circulo">🔍</div>
-        <span>Reconocer señales</span>
-      </div>
-      <div class="nivel-linea"></div>
-      <div class="nivel-nodo">
-        <div class="nivel-circulo">🧠</div>
-        <span>Entender por qué</span>
-      </div>
-      <div class="nivel-linea"></div>
-      <div class="nivel-nodo">
-        <div class="nivel-circulo">💬</div>
-        <span>Cómo hablar</span>
-      </div>
-      <div class="nivel-linea"></div>
-      <div class="nivel-nodo">
-        <div class="nivel-circulo">🛡️</div>
-        <span>Prevenir y actuar</span>
-      </div>
-      <div class="nivel-linea"></div>
-      <div class="nivel-nodo">
-        <div class="nivel-circulo">🎓</div>
-        <span>Graduación</span>
-      </div>
+  <div class="inicio-body">
+    <h2>Tu recorrido hoy</h2>
+    <p>4 niveles · Quizzes · Recursos colombianos · Diploma final</p>
+    <div class="mapa">
+      <div class="mapa-nodo"><div class="mapa-circulo">🔍</div><span>Reconocer</span></div>
+      <div class="mapa-linea"></div>
+      <div class="mapa-nodo"><div class="mapa-circulo">🧠</div><span>Entender</span></div>
+      <div class="mapa-linea"></div>
+      <div class="mapa-nodo"><div class="mapa-circulo">💬</div><span>Hablar</span></div>
+      <div class="mapa-linea"></div>
+      <div class="mapa-nodo"><div class="mapa-circulo">🛡️</div><span>Prevenir</span></div>
+      <div class="mapa-linea"></div>
+      <div class="mapa-nodo"><div class="mapa-circulo">🎓</div><span>Diploma</span></div>
     </div>
-
-    <div class="cards-grid" style="text-align:left;">
-      <div class="card">
-        <span class="card-icon">⏱️</span>
-        <h3>20–25 minutos</h3>
-        <p>Completar los 4 niveles y el quiz final. Puedes pausar y volver.</p>
-      </div>
-      <div class="card">
-        <span class="card-icon">🇨🇴</span>
-        <h3>Contexto colombiano</h3>
-        <p>Información adaptada a la realidad del país, con recursos y líneas de apoyo locales.</p>
-      </div>
-      <div class="card">
-        <span class="card-icon">🎯</span>
-        <h3>Basado en evidencia</h3>
-        <p>Estrategias respaldadas por psicología del desarrollo y comunicación asertiva.</p>
-      </div>
+    <div class="cards-grid">
+      <div class="card"><div class="card-icon">⏱️</div><h3>20–25 minutos</h3><p>Completa los 4 niveles a tu ritmo.</p></div>
+      <div class="card"><div class="card-icon">🇨🇴</div><h3>Contexto colombiano</h3><p>Datos y recursos adaptados al país.</p></div>
+      <div class="card"><div class="card-icon">🎯</div><h3>Basado en evidencia</h3><p>Psicología del desarrollo y comunicación familiar.</p></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     NIVEL 1: RECONOCER SEÑALES
-══════════════════════════════════════════════════ -->
-<div class="seccion" id="nivel-1">
-  <div class="nivel-chip n1">🔍 Nivel 1 · Reconocer señales</div>
-  <h2 class="seccion-titulo">¿Cómo saber si mi hijo/a está consumiendo?</h2>
-  <p class="seccion-intro">
-    En Colombia, según el Ministerio de Salud, la edad de inicio de consumo de alcohol es de 12 años en promedio. Las señales no siempre son obvias — aprender a leerlas es el primer paso.
-  </p>
-
-  <div class="alerta info">
-    <span class="alerta-icon">ℹ️</span>
-    <div class="alerta-texto">
-      <h4>Dato Colombia 2023</h4>
-      <p>El 34% de los estudiantes de secundaria ha probado alcohol. En ciudades como Medellín, Bogotá y Cali, el acceso a sustancias ilegales también es significativo.</p>
-    </div>
+<!-- BARRA (oculta al inicio) -->
+<div id="barra-wrap" class="barra-wrap oculto">
+  <div class="barra-top">
+    <span id="barra-label">Nivel 1 de 4</span>
+    <span class="barra-pts" id="barra-pts">0 pts</span>
   </div>
+  <div class="barra-bg"><div class="barra-fill" id="barra-fill"></div></div>
+</div>
 
-  <h3 style="font-weight:700; margin-bottom:16px; font-size:1rem;">Señales físicas, conductuales y sociales</h3>
+<!-- ═══════════════════════════════
+     NIVEL 1
+═══════════════════════════════ -->
+<div id="nivel-1" class="oculto">
+  <div class="seccion">
+    <div class="nivel-pill" style="background:#e8f5ee;color:#1a7a4a">🔍 Nivel 1 · Reconocer señales</div>
+    <h2>¿Cómo saber si mi hijo/a está consumiendo?</h2>
+    <p class="seccion-intro" style="border-left:3px solid #1a7a4a">En Colombia, la edad de inicio de consumo de alcohol es de 12 años en promedio. Las señales no siempre son obvias — aprenderlas es el primer paso.</p>
 
-  <table class="tabla-senales">
-    <thead>
-      <tr>
-        <th>Señal</th>
-        <th>Tipo</th>
-        <th>Nivel de alerta</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Ojos rojos frecuentes, olor en ropa o aliento</td>
-        <td>Física</td>
-        <td><span class="tag moderado">Moderado</span></td>
-      </tr>
-      <tr>
-        <td>Cambios bruscos de humor o irritabilidad extrema</td>
-        <td>Conductual</td>
-        <td><span class="tag moderado">Moderado</span></td>
-      </tr>
-      <tr>
-        <td>Bajón en notas o abandono de actividades que amaba</td>
-        <td>Social</td>
-        <td><span class="tag moderado">Moderado</span></td>
-      </tr>
-      <tr>
-        <td>Nuevos amigos que no quiere presentar</td>
-        <td>Social</td>
-        <td><span class="tag leve">Leve</span></td>
-      </tr>
-      <tr>
-        <td>Objetos desaparecidos o dinero faltante en casa</td>
-        <td>Conductual</td>
-        <td><span class="tag grave">Grave</span></td>
-      </tr>
-      <tr>
-        <td>Aislamiento extremo o mentiras frecuentes</td>
-        <td>Conductual</td>
-        <td><span class="tag grave">Grave</span></td>
-      </tr>
-      <tr>
-        <td>Consumo ya no se esconde — lo hace abiertamente</td>
-        <td>Conductual</td>
-        <td><span class="tag grave">Grave → Busca ayuda hoy</span></td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="alerta info"><span class="alerta-icon">ℹ️</span><div><strong>Dato Colombia 2023</strong><p>El 34% de los estudiantes de secundaria ha probado alcohol. En ciudades como Medellín, Bogotá y Cali el acceso a sustancias ilegales también es significativo.</p></div></div>
 
-  <div class="alerta warn">
-    <span class="alerta-icon">⚠️</span>
-    <div class="alerta-texto">
-      <h4>Importante: no confundir con adolescencia normal</h4>
-      <p>La rebeldía, el distanciamiento y los cambios de humor son parte del desarrollo. Lo que preocupa es la <strong>intensidad, frecuencia y combinación</strong> de varias señales a la vez.</p>
+    <strong style="display:block;font-size:13px;margin-bottom:10px">Señales físicas, conductuales y sociales</strong>
+    <div class="tabla-wrap">
+      <table>
+        <thead><tr><th>Señal</th><th>Tipo</th><th>Alerta</th></tr></thead>
+        <tbody>
+          <tr><td>Ojos rojos, olor en ropa o aliento</td><td>Física</td><td><span class="tag" style="background:#fef3c7;color:#92400e">Moderado</span></td></tr>
+          <tr><td>Cambios bruscos de humor o irritabilidad</td><td>Conductual</td><td><span class="tag" style="background:#fef3c7;color:#92400e">Moderado</span></td></tr>
+          <tr><td>Bajón en notas, abandona actividades</td><td>Social</td><td><span class="tag" style="background:#fef3c7;color:#92400e">Moderado</span></td></tr>
+          <tr><td>Nuevos amigos que no quiere presentar</td><td>Social</td><td><span class="tag" style="background:#d1fae5;color:#065f46">Leve</span></td></tr>
+          <tr><td>Dinero o cosas desapareciendo en casa</td><td>Conductual</td><td><span class="tag" style="background:#fee2e2;color:#991b1b">⚠ Grave</span></td></tr>
+          <tr><td>Aislamiento extremo o mentiras frecuentes</td><td>Conductual</td><td><span class="tag" style="background:#fee2e2;color:#991b1b">⚠ Grave</span></td></tr>
+          <tr><td>Consume abiertamente sin esconderse</td><td>Conductual</td><td><span class="tag" style="background:#fee2e2;color:#991b1b">🚨 Busca ayuda ya</span></td></tr>
+        </tbody>
+      </table>
     </div>
-  </div>
+    <div class="alerta warn"><span class="alerta-icon">⚠️</span><div><strong>No confundir con adolescencia normal</strong><p>Lo que preocupa es la intensidad, frecuencia y combinación de varias señales a la vez — no una señal aislada.</p></div></div>
 
-  <div class="divider">Quiz del nivel 1</div>
+    <div class="quiz-sep">Quiz del nivel 1</div>
 
-  <!-- QUIZ 1 -->
-  <div class="quiz-card" id="q1">
-    <p class="quiz-pregunta">Tu hijo llega a casa un sábado con los ojos rojos y muy alegre. Cuando le preguntas, dice que "solo comió mucho". ¿Cuál es la primera acción más recomendable?</p>
-    <div class="quiz-opciones">
-      <button class="opcion" onclick="responder('q1', this, false, 'Confrontarlo de inmediato puede cerrar el diálogo para siempre. La calma es clave.')">Confrontarlo de inmediato y registrar su cuarto.</button>
-      <button class="opcion" onclick="responder('q1', this, true, '✓ Correcto. Observar el patrón antes de actuar, y luego abrir conversación desde la calma, es la estrategia más efectiva según expertos en comunicación familiar.')">Observar si se repite el patrón y preparar una conversación calmada.</button>
-      <button class="opcion" onclick="responder('q1', this, false, 'Ignorarlo puede perder una ventana importante de intervención temprana.')">Ignorarlo — los adolescentes exageran.</button>
-      <button class="opcion" onclick="responder('q1', this, false, 'Castigarlo sin hablar primero bloquea la comunicación y puede empeorar la situación.')">Castigarlo preventivamente.</button>
+    <div class="quiz-card">
+      <p>Tu hijo llega con los ojos rojos un sábado y dice que "solo comió mucho". ¿Cuál es la primera acción recomendable?</p>
+      <div class="opciones" id="opc-q1">
+        <button class="opcion" onclick="responder('q1',this,false,'Confrontarlo en ese momento puede cerrar el diálogo para siempre. La calma es clave.')">Confrontarlo de inmediato y registrar su cuarto.</button>
+        <button class="opcion" onclick="responder('q1',this,true,'✓ Correcto. Observar el patrón antes de actuar y hablar desde la calma es la estrategia más efectiva.')">Observar si se repite el patrón y preparar una conversación calmada.</button>
+        <button class="opcion" onclick="responder('q1',this,false,'Ignorarlo puede perder una ventana importante de intervención temprana.')">Ignorarlo — los adolescentes exageran.</button>
+        <button class="opcion" onclick="responder('q1',this,false,'El castigo sin diálogo bloquea la comunicación.')">Castigarlo preventivamente.</button>
+      </div>
+      <div class="feedback oculto" id="fb-q1"></div>
     </div>
-    <div class="feedback-quiz" id="fb-q1"></div>
-  </div>
 
-  <div class="quiz-card" id="q2">
-    <p class="quiz-pregunta">¿Cuál de estas combinaciones de señales debe generar mayor preocupación en un padre?</p>
-    <div class="quiz-opciones">
-      <button class="opcion" onclick="responder('q2', this, false, 'Los cambios de humor y amigos nuevos solos pueden ser parte de la adolescencia normal.')">Cambios de humor + amigos nuevos.</button>
-      <button class="opcion" onclick="responder('q2', this, true, '✓ Exacto. Cuando el consumo deja de ocultarse, se combina con mentiras y hay objetos desapareciendo, es una señal de dependencia que requiere ayuda profesional urgente.')">Consumo abierto + mentiras frecuentes + dinero desaparecido.</button>
-      <button class="opcion" onclick="responder('q2', this, false, 'Bajas en notas solas tienen muchas causas posibles no relacionadas con consumo.')">Bajas en notas únicamente.</button>
-      <button class="opcion" onclick="responder('q2', this, false, 'El distanciamiento solo es muy común en adolescentes sin ninguna relación con consumo.')">Distanciamiento de la familia.</button>
+    <div class="quiz-card">
+      <p>¿Cuál combinación de señales debe generar mayor preocupación en un padre?</p>
+      <div class="opciones" id="opc-q2">
+        <button class="opcion" onclick="responder('q2',this,false,'Estas solas pueden ser parte normal de la adolescencia.')">Cambios de humor + amigos nuevos.</button>
+        <button class="opcion" onclick="responder('q2',this,true,'✓ Exacto. Esta combinación señala dependencia y requiere ayuda profesional urgente.')">Consumo abierto + mentiras frecuentes + dinero desaparecido.</button>
+        <button class="opcion" onclick="responder('q2',this,false,'Las bajas notas tienen muchas causas posibles.')">Bajas en notas únicamente.</button>
+        <button class="opcion" onclick="responder('q2',this,false,'El distanciamiento solo es muy común en adolescentes.')">Distanciamiento de la familia.</button>
+      </div>
+      <div class="feedback oculto" id="fb-q2"></div>
     </div>
-    <div class="feedback-quiz" id="fb-q2"></div>
-  </div>
 
-  <div class="nav-btns">
-    <span style="color:var(--gris); font-size:0.9rem;">Nivel 1 de 4</span>
-    <button class="btn btn-prim" onclick="irNivel(2)">Siguiente nivel →</button>
+    <div class="nav">
+      <button class="btn-sec" onclick="irA('pantalla-inicio',false)">← Inicio</button>
+      <button class="btn-prim" onclick="irA('nivel-2',true)">Siguiente nivel →</button>
+    </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     NIVEL 2: ENTENDER POR QUÉ
-══════════════════════════════════════════════════ -->
-<div class="seccion" id="nivel-2">
-  <div class="nivel-chip n2">🧠 Nivel 2 · Entender por qué</div>
-  <h2 class="seccion-titulo">¿Por qué consumen los adolescentes?</h2>
-  <p class="seccion-intro">
-    Antes de reaccionar, necesitas entender. El consumo adolescente casi nunca es capricho — es una respuesta a algo. Reconocer las causas cambia completamente cómo intervenir.
-  </p>
+<!-- ═══════════════════════════════
+     NIVEL 2
+═══════════════════════════════ -->
+<div id="nivel-2" class="oculto">
+  <div class="seccion">
+    <div class="nivel-pill" style="background:#fef3c7;color:#92400e">🧠 Nivel 2 · Entender por qué</div>
+    <h2>¿Por qué consumen los adolescentes?</h2>
+    <p class="seccion-intro" style="border-left:3px solid #92400e">El consumo adolescente casi nunca es capricho — es una respuesta a algo. Reconocer las causas cambia completamente cómo intervenir.</p>
 
-  <div class="cards-grid">
-    <div class="card">
-      <span class="card-icon">👥</span>
-      <h3>Presión del grupo</h3>
-      <p>En Colombia, el 68% de los adolescentes que consumen lo hacen por primera vez con amigos. "No ser el raro" pesa enormemente a los 13-17 años.</p>
+    <div class="mini-grid">
+      <div class="mini-card"><div class="icon">👥</div><strong>Presión del grupo</strong><p>El 68% de adolescentes colombianos consume por primera vez con amigos.</p></div>
+      <div class="mini-card"><div class="icon">😔</div><strong>Vacíos emocionales</strong><p>Ansiedad, soledad y baja autoestima son los factores individuales más frecuentes.</p></div>
+      <div class="mini-card"><div class="icon">🏠</div><strong>Modelo en casa</strong><p>Si en el hogar se consume habitualmente, el riesgo de inicio temprano se multiplica por 3.</p></div>
+      <div class="mini-card"><div class="icon">🧬</div><strong>Cerebro en construcción</strong><p>El lóbulo prefrontal no termina de formarse hasta los 25 años.</p></div>
+      <div class="mini-card"><div class="icon">📱</div><strong>Normalización cultural</strong><p>Series, canciones y reuniones presentan el alcohol como algo inevitable.</p></div>
+      <div class="mini-card"><div class="icon">🔍</div><strong>Curiosidad natural</strong><p>Explorar límites es parte de crecer. El riesgo está en no tener criterio.</p></div>
     </div>
-    <div class="card">
-      <span class="card-icon">😔</span>
-      <h3>Vacíos emocionales</h3>
-      <p>Ansiedad, soledad, baja autoestima y conflictos familiares son los factores individuales más frecuentes. El consumo alivia momentáneamente.</p>
-    </div>
-    <div class="card">
-      <span class="card-icon">🏠</span>
-      <h3>Modelo en casa</h3>
-      <p>Si en el hogar se consume alcohol de forma habitual, el riesgo de inicio temprano se multiplica por 3. Tu ejemplo educa más que tus palabras.</p>
-    </div>
-    <div class="card">
-      <span class="card-icon">📱</span>
-      <h3>Normalización cultural</h3>
-      <p>Canciones, series, redes sociales y celebraciones familiares presentan el alcohol como parte inevitable de "pasarla bien".</p>
-    </div>
-    <div class="card">
-      <span class="card-icon">🧬</span>
-      <h3>Cerebro en construcción</h3>
-      <p>El lóbulo prefrontal — que controla el juicio y el autocontrol — no termina de formarse hasta los 25 años. El adolescente literalmente no evalúa el riesgo como un adulto.</p>
-    </div>
-    <div class="card">
-      <span class="card-icon">🔍</span>
-      <h3>Curiosidad natural</h3>
-      <p>Explorar límites es una función evolutiva del desarrollo. No es el problema — el problema es no tener criterio para hacerlo de forma segura.</p>
-    </div>
-  </div>
 
-  <div class="divider">El contexto colombiano importa</div>
+    <div class="alerta warn"><span class="alerta-icon">🇨🇴</span><div><strong>Factores específicos en Colombia</strong><p>La normalización del "rumbeadero" desde joven, el fácil acceso en zonas urbanas y la presión de pertenecer hacen que el entorno importe tanto o más que el individuo.</p></div></div>
 
-  <div class="alerta warn">
-    <span class="alerta-icon">🇨🇴</span>
-    <div class="alerta-texto">
-      <h4>Factores de riesgo específicos en Colombia</h4>
-      <p>La normalización del "rumbeadero" desde joven, la facilidad de acceso en zonas de alta densidad urbana, y la presión de pertenecer a un grupo en contextos de desigualdad social hacen que el entorno importa tanto o más que el individuo.</p>
-    </div>
-  </div>
-
-  <div class="scenario">
-    <div class="scenario-header">
-      <h3>Escenario real: la pregunta que incomoda</h3>
-      <p>Practica cómo podrías responder</p>
-    </div>
-    <div class="scenario-body">
-      <div class="dialogo">
-        <strong>Tu hijo/a (15 años):</strong> "Pero mamá/papá, ¿por qué tú sí puedes tomarte una cerveza en el asado familiar y yo no? Todos lo hacen y nada te pasa."
-      </div>
-      <p style="font-size:0.9rem; color:var(--gris); margin-bottom:16px; line-height:1.6;">
-        Esta pregunta tiene la respuesta correcta y la respuesta fácil. La fácil cierra la conversación. La correcta la abre para siempre.
-      </p>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:0.88rem;">
-        <div style="background:#FEF2F2; border-radius:8px; padding:16px;">
-          <strong style="color:var(--rojo);">❌ Respuesta que cierra</strong><br><br>
-          "Porque yo soy adulto y mando aquí. Cuando tengas 18 años hablamos."
-        </div>
-        <div style="background:var(--verde-claro); border-radius:8px; padding:16px;">
-          <strong style="color:var(--verde);">✓ Respuesta que conecta</strong><br><br>
-          "Tienes razón en preguntarlo. Mi cerebro ya terminó de formarse — el tuyo todavía está en construcción hasta los 25. No es un no para siempre. Es un 'todavía no' que viene del cuidado."
-        </div>
+    <div class="scenario">
+      <div class="scenario-head"><strong>Escenario: la pregunta que incomoda</strong><span>Hijo/a: "¿Por qué tú sí puedes tomar y yo no?"</span></div>
+      <div class="scenario-body" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px">
+        <div style="background:#fef2f2;border-radius:8px;padding:12px"><strong style="color:#ef4444">❌ Cierra la conversación</strong><br><br>"Porque yo soy adulto y mando aquí. Cuando tengas 18 hablamos."</div>
+        <div style="background:#ecfdf5;border-radius:8px;padding:12px"><strong style="color:#1a7a4a">✓ Abre la conexión</strong><br><br>"Tienes razón en preguntar. Mi cerebro ya terminó de formarse — el tuyo está en construcción hasta los 25. Es un 'todavía no' que viene del cuidado."</div>
       </div>
     </div>
-  </div>
 
-  <div class="divider">Quiz del nivel 2</div>
+    <div class="quiz-sep">Quiz del nivel 2</div>
 
-  <div class="quiz-card" id="q3">
-    <p class="quiz-pregunta">Según la evidencia, ¿cuál es el factor de riesgo individual más fuerte para el inicio del consumo en adolescentes colombianos?</p>
-    <div class="quiz-opciones">
-      <button class="opcion" onclick="responder('q3', this, false, 'Las notas bajas son consecuencia, no causa principal del consumo.')">Tener bajas calificaciones académicas.</button>
-      <button class="opcion" onclick="responder('q3', this, false, 'No tener dinero puede ser un factor protector parcial, pero no el principal.')">No tener dinero para consumir.</button>
-      <button class="opcion" onclick="responder('q3', this, true, '✓ Correcto. Los vacíos emocionales — especialmente ansiedad, soledad y baja autoestima — son el factor individual más documentado en la literatura sobre consumo adolescente en Latinoamérica.')">Vacíos emocionales como ansiedad, soledad o baja autoestima.</button>
-      <button class="opcion" onclick="responder('q3', this, false, 'Vivir en ciudad grande aumenta acceso pero no es el factor individual más determinante.')">Vivir en una ciudad grande.</button>
+    <div class="quiz-card">
+      <p>¿Cuál es el factor de riesgo individual más fuerte para el inicio del consumo en Colombia?</p>
+      <div class="opciones" id="opc-q3">
+        <button class="opcion" onclick="responder('q3',this,false,'Las notas bajas son consecuencia, no causa principal.')">Tener bajas calificaciones académicas.</button>
+        <button class="opcion" onclick="responder('q3',this,true,'✓ Correcto. Los vacíos emocionales son el factor más documentado en Latinoamérica.')">Vacíos emocionales como ansiedad, soledad o baja autoestima.</button>
+        <button class="opcion" onclick="responder('q3',this,false,'No es el factor individual más determinante.')">No tener dinero para consumir.</button>
+        <button class="opcion" onclick="responder('q3',this,false,'Aumenta el acceso, pero no es el principal factor.')">Vivir en una ciudad grande.</button>
+      </div>
+      <div class="feedback oculto" id="fb-q3"></div>
     </div>
-    <div class="feedback-quiz" id="fb-q3"></div>
-  </div>
 
-  <div class="quiz-card" id="q4">
-    <p class="quiz-pregunta">¿Por qué el cerebro adolescente evalúa el riesgo de forma diferente al cerebro adulto?</p>
-    <div class="quiz-opciones">
-      <button class="opcion" onclick="responder('q4', this, false, 'No es un tema de rebeldía sino de biología del desarrollo cerebral.')">Porque los adolescentes son naturalmente rebeldes por actitud.</button>
-      <button class="opcion" onclick="responder('q4', this, true, '✓ Correcto. El lóbulo prefrontal, que regula el juicio, la planificación y el autocontrol, no madura completamente hasta los 25 años. Por eso los adolescentes toman riesgos que los adultos evitarían.')">Porque el lóbulo prefrontal (juicio y autocontrol) no madura hasta los 25 años.</button>
-      <button class="opcion" onclick="responder('q4', this, false, 'La inteligencia no tiene relación directa con la madurez del lóbulo prefrontal.')">Porque tienen menor inteligencia que un adulto.</button>
-      <button class="opcion" onclick="responder('q4', this, false, 'Las hormonas influyen en el estado de ánimo, pero la diferencia en evaluación de riesgo es neurológica.')">Porque producen más hormonas que los adultos.</button>
+    <div class="quiz-card">
+      <p>¿Por qué el cerebro adolescente evalúa el riesgo diferente al adulto?</p>
+      <div class="opciones" id="opc-q4">
+        <button class="opcion" onclick="responder('q4',this,false,'No es actitud — es biología del desarrollo cerebral.')">Porque son naturalmente rebeldes por actitud.</button>
+        <button class="opcion" onclick="responder('q4',this,true,'✓ Correcto. Por eso los adolescentes toman riesgos que los adultos evitarían.')">Porque el lóbulo prefrontal (juicio y autocontrol) no madura hasta los 25 años.</button>
+        <button class="opcion" onclick="responder('q4',this,false,'La inteligencia no tiene relación directa con la madurez prefrontal.')">Porque tienen menor inteligencia.</button>
+        <button class="opcion" onclick="responder('q4',this,false,'Las hormonas influyen en el ánimo, pero la diferencia en riesgo es neurológica.')">Porque producen más hormonas.</button>
+      </div>
+      <div class="feedback oculto" id="fb-q4"></div>
     </div>
-    <div class="feedback-quiz" id="fb-q4"></div>
-  </div>
 
-  <div class="nav-btns">
-    <button class="btn btn-sec" onclick="irNivel(1)">← Anterior</button>
-    <button class="btn btn-prim" onclick="irNivel(3)">Siguiente nivel →</button>
+    <div class="nav">
+      <button class="btn-sec" onclick="irA('nivel-1',true)">← Anterior</button>
+      <button class="btn-prim" onclick="irA('nivel-3',true)">Siguiente nivel →</button>
+    </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     NIVEL 3: CÓMO HABLAR
-══════════════════════════════════════════════════ -->
-<div class="seccion" id="nivel-3">
-  <div class="nivel-chip n3">💬 Nivel 3 · Cómo hablar</div>
-  <h2 class="seccion-titulo">La conversación más difícil — y cómo tenerla</h2>
-  <p class="seccion-intro">
-    El diálogo no empieza cuando descubres el problema. Empieza años antes. Pero si ya tienes que tenerlo hoy, hay una forma que abre puertas y otra que las cierra para siempre.
-  </p>
+<!-- ═══════════════════════════════
+     NIVEL 3
+═══════════════════════════════ -->
+<div id="nivel-3" class="oculto">
+  <div class="seccion">
+    <div class="nivel-pill" style="background:#fee2e2;color:#991b1b">💬 Nivel 3 · Cómo hablar</div>
+    <h2>La conversación más difícil — y cómo tenerla</h2>
+    <p class="seccion-intro" style="border-left:3px solid #991b1b">Hay una forma que abre puertas y otra que las cierra para siempre. Aquí aprenderás la diferencia.</p>
 
-  <div class="cards-grid">
-    <div class="card" style="border-top: 3px solid var(--verde);">
-      <span class="card-icon">🧘</span>
-      <h3>Primero, regula tus emociones</h3>
-      <p>Hablar desde la rabia o el pánico garantiza el fracaso. Respira, espera el momento correcto — no lo enfrentes en el momento del descubrimiento.</p>
+    <div class="mini-grid">
+      <div class="mini-card" style="border-top:3px solid #1a7a4a"><div class="icon">🧘</div><strong>Regula tus emociones</strong><p>Hablar desde la rabia garantiza el fracaso. Espera el momento correcto.</p></div>
+      <div class="mini-card" style="border-top:3px solid #1e3a8a"><div class="icon">👂</div><strong>Escucha antes de hablar</strong><p>"¿Cómo te sentiste?" abre más que "¿dónde estabas?". Entender no es aprobar.</p></div>
+      <div class="mini-card" style="border-top:3px solid #92400e"><div class="icon">🤝</div><strong>Acuerdos, no reglas</strong><p>Los acuerdos co-construidos tienen 3× más probabilidad de cumplirse.</p></div>
+      <div class="mini-card" style="border-top:3px solid #991b1b"><div class="icon">📵</div><strong>El código de rescate</strong><p>Una señal que signifique: "Ven a buscarme sin preguntas". Ese pacto salva vidas.</p></div>
     </div>
-    <div class="card" style="border-top: 3px solid var(--azul);">
-      <span class="card-icon">👂</span>
-      <h3>Escucha antes de hablar</h3>
-      <p>"¿Cómo te sentiste?" abre más que "¿dónde estabas?". Entender no es aprobar. Tu hijo/a necesita sentirse escuchado antes de escucharte.</p>
-    </div>
-    <div class="card" style="border-top: 3px solid var(--amarillo);">
-      <span class="card-icon">🤝</span>
-      <h3>Construye acuerdos, no reglas</h3>
-      <p>Las reglas impuestas generan rebeldía. Los acuerdos co-construidos con tu hijo/a tienen 3 veces más probabilidad de cumplirse.</p>
-    </div>
-    <div class="card" style="border-top: 3px solid var(--rojo);">
-      <span class="card-icon">📵</span>
-      <h3>El código de rescate</h3>
-      <p>Acuerda con tu hijo una señal (un emoji, un mensaje) que signifique: "Ven a buscarme sin preguntar, sin drama". Ese acuerdo salva vidas.</p>
-    </div>
-  </div>
 
-  <div class="divider">Errores más comunes de los padres</div>
+    <div class="alerta danger"><span class="alerta-icon">🚫</span><div><strong>Lo que NO funciona</strong><p>Gritar, comparar ("tu hermano nunca hizo esto"), dramatizar, ignorar o castigar sin hablar. El castigo sin comprensión solo enseña a esconderse mejor.</p></div></div>
 
-  <div class="alerta danger">
-    <span class="alerta-icon">🚫</span>
-    <div class="alerta-texto">
-      <h4>Lo que NO funciona (aunque se siente bien hacerlo)</h4>
-      <p><strong>Gritar, amenazar, comparar:</strong> "Tu hermano nunca hizo esto." · <strong>Dramatizar:</strong> "¡Te vas a morir!" · <strong>Ignorar:</strong> "Eso es cosa de jóvenes." · <strong>Castigar sin hablar:</strong> El castigo sin comprensión solo enseña a esconderse mejor.</p>
-    </div>
-  </div>
-
-  <div class="scenario">
-    <div class="scenario-header">
-      <h3>Guión para la conversación difícil</h3>
-      <p>Adapta este modelo a tu estilo y situación</p>
-    </div>
-    <div class="scenario-body">
-      <div style="display:flex; flex-direction:column; gap:12px;">
-        <div>
-          <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:var(--gris); font-weight:700;">Apertura</span>
-          <div class="dialogo" style="margin-top:6px;">
-            "Quiero hablar de algo importante. No estoy enojado/a — estoy preocupado/a porque te quiero. ¿Podemos sentarnos un momento?"
-          </div>
-        </div>
-        <div>
-          <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:var(--gris); font-weight:700;">Si confirma el consumo</span>
-          <div class="dialogo" style="margin-top:6px;">
-            "Gracias por decirme la verdad. Sé que no es fácil. Cuéntame — ¿cómo te has sentido cuando lo haces? ¿Qué es lo que buscas en ese momento?"
-          </div>
-        </div>
-        <div>
-          <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:var(--gris); font-weight:700;">Propuesta de acuerdo</span>
-          <div class="dialogo" style="margin-top:6px;">
-            "Quiero que podamos hablar de esto siempre. Si algún día sientes presión, me llamas y voy por ti — sin preguntas, sin castigo. ¿Podemos hacer ese pacto?"
-          </div>
-        </div>
-        <div>
-          <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:var(--gris); font-weight:700;">Cierre</span>
-          <div class="dialogo" style="margin-top:6px;">
-            "Esto no cambia lo que siento por ti. Quiero ayudarte a tomar buenas decisiones — juntos. No estás solo/a en esto."
-          </div>
-        </div>
+    <div class="scenario">
+      <div class="scenario-head"><strong>Guión para la conversación difícil</strong><span>Adapta este modelo a tu estilo</span></div>
+      <div class="scenario-body" style="display:flex;flex-direction:column;gap:12px">
+        <div><div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#6b7280;font-weight:700;margin-bottom:5px">Apertura</div><div class="dialogo">Quiero hablar de algo importante. No estoy enojado/a — estoy preocupado/a porque te quiero. ¿Podemos sentarnos un momento?</div></div>
+        <div><div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#6b7280;font-weight:700;margin-bottom:5px">Si confirma el consumo</div><div class="dialogo">Gracias por decirme la verdad. Cuéntame — ¿cómo te has sentido cuando lo hiciste?</div></div>
+        <div><div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#6b7280;font-weight:700;margin-bottom:5px">Propuesta de acuerdo</div><div class="dialogo">Si algún día sientes presión, me llamas y voy por ti — sin preguntas, sin castigo. ¿Hacemos ese pacto?</div></div>
+        <div><div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#6b7280;font-weight:700;margin-bottom:5px">Cierre</div><div class="dialogo">Esto no cambia lo que siento por ti. Quiero ayudarte a tomar buenas decisiones — juntos.</div></div>
       </div>
     </div>
-  </div>
 
-  <div class="divider">Quiz del nivel 3</div>
+    <div class="quiz-sep">Quiz del nivel 3</div>
 
-  <div class="quiz-card" id="q5">
-    <p class="quiz-pregunta">Tu hija de 16 años llega a casa a las 2am con olor a alcohol. ¿Cuál es la mejor primera acción?</p>
-    <div class="quiz-opciones">
-      <button class="opcion" onclick="responder('q5', this, false, 'Confrontarla en ese estado y en ese momento casi siempre termina en pelea y cierra el diálogo.')">Confrontarla inmediatamente y quitarle el celular esa noche.</button>
-      <button class="opcion" onclick="responder('q5', this, true, '✓ Correcto. Asegurarte de que está bien, dejarla dormir y tener la conversación al día siguiente en calma es la estrategia que más recomiendan los psicólogos de familia.')">Asegurarte de que está bien, dejarla dormir y hablar al día siguiente con calma.</button>
-      <button class="opcion" onclick="responder('q5', this, false, 'Ignorarlo completamente pierde una oportunidad importante de intervención.')">Ignorarlo — tiene 16 años, ya casi es adulta.</button>
-      <button class="opcion" onclick="responder('q5', this, false, 'Llamar al colegio sin hablar primero con ella puede romper la confianza definitivamente.')">Llamar al colegio al día siguiente para reportarlo.</button>
+    <div class="quiz-card">
+      <p>Tu hija de 16 años llega a las 2am con olor a alcohol. ¿Qué haces primero?</p>
+      <div class="opciones" id="opc-q5">
+        <button class="opcion" onclick="responder('q5',this,false,'En ese estado casi siempre termina en pelea y cierra el diálogo.')">Confrontarla inmediatamente y quitarle el celular.</button>
+        <button class="opcion" onclick="responder('q5',this,true,'✓ Correcto. Hablar al día siguiente en calma es lo que más recomiendan los psicólogos de familia.')">Verificar que está bien, dejarla dormir y hablar mañana con calma.</button>
+        <button class="opcion" onclick="responder('q5',this,false,'Ignorarlo pierde una oportunidad importante.')">Ignorarlo — casi es adulta.</button>
+        <button class="opcion" onclick="responder('q5',this,false,'Sin hablar con ella primero puede romper la confianza definitivamente.')">Llamar al colegio al día siguiente para reportarlo.</button>
+      </div>
+      <div class="feedback oculto" id="fb-q5"></div>
     </div>
-    <div class="feedback-quiz" id="fb-q5"></div>
-  </div>
 
-  <div class="quiz-card" id="q6">
-    <p class="quiz-pregunta">¿Cuál de estas frases abre mejor la conversación con un adolescente sobre consumo?</p>
-    <div class="quiz-opciones">
-      <button class="opcion" onclick="responder('q6', this, false, 'Esta frase acusa de entrada y pone al adolescente a la defensiva.')">¿Estás consumiendo drogas? Necesito que me digas la verdad ahora mismo.</button>
-      <button class="opcion" onclick="responder('q6', this, false, 'Comparar genera resentimiento y cierra el diálogo rápidamente.')">Tu primo nunca hizo esto — ¿por qué tú sí?</button>
-      <button class="opcion" onclick="responder('q6', this, true, '✓ Correcto. Una pregunta abierta sobre el contexto social no acusa, no amenaza, y abre un espacio genuino de conversación sobre el mundo del adolescente.')">¿Cómo son las fiestas a las que vas? ¿Qué suele pasar ahí?</button>
-      <button class="opcion" onclick="responder('q6', this, false, 'Las amenazas solo enseñan a esconderse mejor, no a tomar mejores decisiones.')">Si te encuentro tomando de nuevo, te quedas sin salidas por dos meses.</button>
+    <div class="quiz-card">
+      <p>¿Cuál frase abre mejor la conversación sobre consumo con tu hijo?</p>
+      <div class="opciones" id="opc-q6">
+        <button class="opcion" onclick="responder('q6',this,false,'Acusa de entrada y pone al adolescente a la defensiva.')">¿Estás consumiendo drogas? Necesito que me digas la verdad ya.</button>
+        <button class="opcion" onclick="responder('q6',this,false,'Comparar genera resentimiento y cierra el diálogo.')">Tu primo nunca hizo esto — ¿por qué tú sí?</button>
+        <button class="opcion" onclick="responder('q6',this,true,'✓ Correcto. Una pregunta abierta sin acusar crea un espacio genuino de conversación.')">¿Cómo son las fiestas a las que vas? ¿Qué suele pasar ahí?</button>
+        <button class="opcion" onclick="responder('q6',this,false,'Las amenazas solo enseñan a esconderse mejor.')">Si te vuelvo a encontrar tomando, te quedas sin salidas dos meses.</button>
+      </div>
+      <div class="feedback oculto" id="fb-q6"></div>
     </div>
-    <div class="feedback-quiz" id="fb-q6"></div>
-  </div>
 
-  <div class="nav-btns">
-    <button class="btn btn-sec" onclick="irNivel(2)">← Anterior</button>
-    <button class="btn btn-prim" onclick="irNivel(4)">Siguiente nivel →</button>
+    <div class="nav">
+      <button class="btn-sec" onclick="irA('nivel-2',true)">← Anterior</button>
+      <button class="btn-prim" onclick="irA('nivel-4',true)">Siguiente nivel →</button>
+    </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     NIVEL 4: PREVENIR Y ACTUAR
-══════════════════════════════════════════════════ -->
-<div class="seccion" id="nivel-4">
-  <div class="nivel-chip n4">🛡️ Nivel 4 · Prevenir y actuar</div>
-  <h2 class="seccion-titulo">Prevención real y recursos en Colombia</h2>
-  <p class="seccion-intro">
-    Prevenir es más fácil que recuperar. Y cuando el problema ya existe, hay rutas de ayuda claras. En Colombia tienes opciones — gratuitas, confiables y cercanas.
-  </p>
+<!-- ═══════════════════════════════
+     NIVEL 4
+═══════════════════════════════ -->
+<div id="nivel-4" class="oculto">
+  <div class="seccion">
+    <div class="nivel-pill" style="background:#eef2ff;color:#1e3a8a">🛡️ Nivel 4 · Prevenir y actuar</div>
+    <h2>Prevención real y recursos en Colombia</h2>
+    <p class="seccion-intro" style="border-left:3px solid #1e3a8a">Prevenir es más fácil que recuperar. En Colombia tienes rutas de ayuda gratuitas, confiables y cercanas.</p>
 
-  <h3 style="font-weight:700; margin-bottom:16px; font-size:1rem;">Las 6 estrategias de prevención más efectivas</h3>
+    <div class="mini-grid">
+      <div class="mini-card"><div class="icon">❤️</div><strong>El vínculo primero</strong><p>Los jóvenes con relaciones cercanas a sus padres tienen 40% menos probabilidad de consumir.</p></div>
+      <div class="mini-card"><div class="icon">🎯</div><strong>Dales propósito</strong><p>Un joven con sentido de vida llena los vacíos que las sustancias explotan.</p></div>
+      <div class="mini-card"><div class="icon">🧰</div><strong>Entrena el "no"</strong><p>Practica con tu hijo cómo declinar sin sentirse raro.</p></div>
+      <div class="mini-card"><div class="icon">👥</div><strong>Conoce su círculo</strong><p>Invita a sus amigos a casa. El contexto social dice más que cualquier pregunta.</p></div>
+      <div class="mini-card"><div class="icon">📚</div><strong>Información real</strong><p>Sin exageraciones. Los jóvenes detectan la hipérbole y dejan de escuchar.</p></div>
+      <div class="mini-card"><div class="icon">🪞</div><strong>Revisa tu ejemplo</strong><p>No tienes que ser perfecto — pero sí consciente de lo que modelas cada día.</p></div>
+    </div>
 
-  <div class="cards-grid">
-    <div class="card">
-      <span class="card-icon">❤️</span>
-      <h3>El vínculo primero</h3>
-      <p>Los jóvenes con relaciones cercanas a sus padres tienen 40% menos probabilidad de consumir. No se trata de ser el amigo — se trata de estar presente de verdad.</p>
-    </div>
-    <div class="card">
-      <span class="card-icon">🎯</span>
-      <h3>Dales propósito</h3>
-      <p>Un joven con sentido de vida — deporte, arte, voluntariado, proyecto propio — llena los vacíos que las sustancias explotan.</p>
-    </div>
-    <div class="card">
-      <span class="card-icon">🧰</span>
-      <h3>Entrena el "no"</h3>
-      <p>Practica con tu hijo cómo declinar sin sentirse raro. "No, gracias, no me llama la atención" es una frase que puede salvarlo en una fiesta.</p>
-    </div>
-    <div class="card">
-      <span class="card-icon">👥</span>
-      <h3>Conoce su círculo</h3>
-      <p>Invita a sus amigos a casa. El contexto social de tu hijo te dice más que cualquier pregunta directa. Conocerlos no es controlarlos.</p>
-    </div>
-    <div class="card">
-      <span class="card-icon">📚</span>
-      <h3>Información real, sin dramatismo</h3>
-      <p>Los jóvenes detectan la hipérbole y dejan de escuchar todo. Datos reales sobre efectos del alcohol en el cerebro adolescente funcionan mucho más.</p>
-    </div>
-    <div class="card">
-      <span class="card-icon">🪞</span>
-      <h3>Revisa tu propio ejemplo</h3>
-      <p>¿Qué ve tu hijo en ti cada fin de semana? No tienes que ser perfecto — pero sí consciente de lo que modelas.</p>
-    </div>
-  </div>
+    <div class="alerta ok"><span class="alerta-icon">📞</span><div><strong>Rutas de ayuda gratuitas en Colombia</strong><p>Buscar ayuda profesional no es el último recurso — es el primero correcto.</p></div></div>
 
-  <div class="divider">Rutas de ayuda en Colombia</div>
+    <div class="recurso"><div class="recurso-icon" style="background:#e8f5ee">🏥</div><div><strong>Línea 106 — Salud Mental</strong><span>Atención gratuita 24/7 en todo el territorio nacional.</span></div></div>
+    <div class="recurso"><div class="recurso-icon" style="background:#eef2ff">📞</div><div><strong>Línea 141 — ICBF</strong><span>Orientación especializada para padres y familias en riesgo.</span></div></div>
+    <div class="recurso"><div class="recurso-icon" style="background:#e8f5ee">🧠</div><div><strong>CAMAD — Centros de tratamiento</strong><span>Bogotá, Medellín y Cali. Acceso por EPS o SISBEN.</span></div></div>
+    <div class="recurso"><div class="recurso-icon" style="background:#fef2f2">🏫</div><div><strong>Psicólogo del colegio</strong><span>Aliado natural con contexto del entorno de tu hijo.</span></div></div>
+    <div class="recurso"><div class="recurso-icon" style="background:#eef2ff">💊</div><div><strong>Programa Rumbos — MinSalud</strong><span>Talleres de reducción de consumo en ciudades principales.</span></div></div>
 
-  <div class="alerta exito">
-    <span class="alerta-icon">📞</span>
-    <div class="alerta-texto">
-      <h4>Líneas de atención gratuitas — disponibles ahora</h4>
-      <p>Si sientes que la situación supera lo que puedes manejar solo, buscar ayuda profesional no es el último recurso — es el primero correcto.</p>
+    <div class="quiz-sep">Quiz del nivel 4</div>
+
+    <div class="quiz-card">
+      <p>Tu hijo de 14 años admite haber consumido marihuana 3 veces. ¿Cuál es la ruta correcta?</p>
+      <div class="opciones" id="opc-q7">
+        <button class="opcion" onclick="responder('q7',this,false,'Por 3 consumos experimentales es desproporcionado y puede traumatizar.')">Internarlo de inmediato en un centro de rehabilitación.</button>
+        <button class="opcion" onclick="responder('q7',this,true,'✓ Correcto. 3 consumos es experimental. Abrir el diálogo y establecer acuerdos es la respuesta adecuada.')">Hablar con calma, entender el contexto y buscar orientación si se repite.</button>
+        <button class="opcion" onclick="responder('q7',this,false,'Crea confusión de roles y normaliza el consumo.')">Probar la droga tú mismo para entender el efecto.</button>
+        <button class="opcion" onclick="responder('q7',this,false,'Ignorarlo puede convertir el consumo experimental en patrón consolidado.')">Ignorarlo — probar una vez no es el fin del mundo.</button>
+      </div>
+      <div class="feedback oculto" id="fb-q7"></div>
     </div>
-  </div>
 
-  <div class="recurso-item">
-    <div class="recurso-icon-box verde">🏥</div>
-    <div class="recurso-txt">
-      <h4>Línea 106 — Salud Mental</h4>
-      <p>Atención gratuita 24/7 en todo el territorio nacional. Orientación en crisis para familias.</p>
+    <div class="quiz-card">
+      <p>En Colombia, ¿a qué línea llamar si tu hijo está en una crisis de consumo aguda?</p>
+      <div class="opciones" id="opc-q8">
+        <button class="opcion" onclick="responder('q8',this,false,'No es el primer recurso en una crisis de consumo.')">Línea 123 (Policía).</button>
+        <button class="opcion" onclick="responder('q8',this,true,'✓ Correcto. La Línea 106 atiende las 24 horas con orientadores para crisis de consumo adolescente.')">Línea 106 de Salud Mental — gratuita 24/7.</button>
+        <button class="opcion" onclick="responder('q8',this,false,'Útil, pero para crisis aguda la Línea 106 es más especializada.')">Línea 141 del ICBF.</button>
+        <button class="opcion" onclick="responder('q8',this,false,'En una crisis aguda, esperar no es una opción segura.')">Esperar a que pase y hablar mañana.</button>
+      </div>
+      <div class="feedback oculto" id="fb-q8"></div>
     </div>
-  </div>
 
-  <div class="recurso-item">
-    <div class="recurso-icon-box azul">📞</div>
-    <div class="recurso-txt">
-      <h4>Línea 141 — Bienestar Familiar (ICBF)</h4>
-      <p>Atención a familias con situaciones de riesgo. Orientación especializada para padres.</p>
+    <div class="nav">
+      <button class="btn-sec" onclick="irA('nivel-3',true)">← Anterior</button>
+      <button class="btn-prim" onclick="irA('graduacion',true)">Ir a la graduación 🎓</button>
     </div>
-  </div>
-
-  <div class="recurso-item">
-    <div class="recurso-icon-box verde">🧠</div>
-    <div class="recurso-txt">
-      <h4>Centro de Atención Médica a Drogodependientes (CAMAD)</h4>
-      <p>Centros de tratamiento en Bogotá, Medellín y Cali con enfoque familiar. Acceso por EPS o SISBEN.</p>
-    </div>
-  </div>
-
-  <div class="recurso-item">
-    <div class="recurso-icon-box rojo">🏫</div>
-    <div class="recurso-txt">
-      <h4>Psicólogo del colegio</h4>
-      <p>En Colombia, muchas instituciones educativas tienen orientadores. Son aliados naturales y tienen contexto del entorno de tu hijo.</p>
-    </div>
-  </div>
-
-  <div class="recurso-item">
-    <div class="recurso-icon-box azul">💊</div>
-    <div class="recurso-txt">
-      <h4>Ministerio de Salud — Rumbos</h4>
-      <p>Programa de reducción de consumo para adolescentes. Talleres y atención en ciudades principales.</p>
-    </div>
-  </div>
-
-  <div class="divider">Quiz del nivel 4</div>
-
-  <div class="quiz-card" id="q7">
-    <p class="quiz-pregunta">Tu hijo de 14 años admite que ha consumido marihuana 3 veces con amigos. ¿Cuál es la ruta correcta a seguir?</p>
-    <div class="quiz-opciones">
-      <button class="opcion" onclick="responder('q7', this, false, 'Probar la droga no te da ventaja — crea confusión de roles y normaliza el consumo.')">Probar la droga tú mismo para entender mejor el efecto.</button>
-      <button class="opcion" onclick="responder('q7', this, false, 'Mandarlo a un centro de rehabilitación por 3 consumos experimentales es una respuesta desproporcionada que puede traumatizar.')">Internarlo de inmediato en un centro de rehabilitación.</button>
-      <button class="opcion" onclick="responder('q7', this, true, '✓ Correcto. 3 consumos con amigos es un consumo experimental. La respuesta correcta es abrir el diálogo, establecer un acuerdo claro y buscar orientación profesional si se repite — no internarlo ni ignorarlo.')">Hablar con calma, entender el contexto, establecer acuerdo y buscar orientación si se repite.</button>
-      <button class="opcion" onclick="responder('q7', this, false, 'Ignorarlo puede convertir el consumo experimental en un patrón consolidado.')">Ignorarlo — probar una vez no es el fin del mundo.</button>
-    </div>
-    <div class="feedback-quiz" id="fb-q7"></div>
-  </div>
-
-  <div class="quiz-card" id="q8">
-    <p class="quiz-pregunta">En Colombia, ¿a qué línea debes llamar si tu hijo está en una crisis de consumo aguda y no sabes cómo actuar?</p>
-    <div class="quiz-opciones">
-      <button class="opcion" onclick="responder('q8', this, false, 'El 123 es la Policía — puede ser necesario en emergencias físicas, pero no es el primer recurso en una crisis de consumo.')">Línea 123 (Policía).</button>
-      <button class="opcion" onclick="responder('q8', this, true, '✓ Correcto. La Línea 106 de Salud Mental atiende gratuitamente las 24 horas y tiene orientadores capacitados para crisis relacionadas con consumo adolescente.')">Línea 106 de Salud Mental — atención gratuita 24/7.</button>
-      <button class="opcion" onclick="responder('q8', this, false, 'La línea del ICBF (141) es útil, pero para crisis de consumo aguda, la Línea 106 es más especializada.')">Línea 141 del ICBF.</button>
-      <button class="opcion" onclick="responder('q8', this, false, 'En una crisis aguda, esperar a mañana no es una opción segura.')">Esperar a que pase y hablar mañana.</button>
-    </div>
-    <div class="feedback-quiz" id="fb-q8"></div>
-  </div>
-
-  <div class="nav-btns">
-    <button class="btn btn-sec" onclick="irNivel(3)">← Anterior</button>
-    <button class="btn btn-prim" onclick="irGraduacion()">Ir a la graduación 🎓</button>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
+<!-- ═══════════════════════════════
      GRADUACIÓN
-══════════════════════════════════════════════════ -->
-<div id="seccion-graduacion" style="max-width:860px; margin:0 auto; padding:60px 24px 80px; text-align:center;">
+═══════════════════════════════ -->
+<div id="graduacion" class="oculto">
+  <div class="grad-wrap">
+    <span class="grad-emoji">🎉</span>
 
-  <span class="grad-confetti">🎉</span>
-
-  <div class="diploma">
-    <div class="diploma-sello">🎓</div>
-    <h2>Certificado de Graduación</h2>
-    <h1 id="diploma-nombre">Escuela de Padres Colombia</h1>
-    <p class="diploma-subtitulo">
-      Ha completado el entrenamiento <strong>"Guiar a tu hijo/a empieza con saber"</strong> —<br>
-      un programa basado en evidencia sobre comunicación familiar y prevención del consumo adolescente.
-    </p>
-
-    <div style="display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin-bottom:24px;">
-      <div>
-        <div class="puntuacion-grande" id="puntos-finales">0</div>
-        <div class="puntuacion-label">puntos obtenidos</div>
+    <div class="diploma">
+      <div class="diploma-sello">🎓</div>
+      <h3>Certificado de Graduación</h3>
+      <h1 id="diploma-nombre">Padre / Madre comprometido/a</h1>
+      <p class="diploma-sub">Ha completado <strong>"Guiar a tu hijo/a empieza con saber"</strong> — un programa basado en evidencia sobre comunicación familiar y prevención del consumo adolescente en Colombia.</p>
+      <div class="diploma-stats">
+        <div><div class="stat-num" id="stat-pts" style="color:#1a7a4a">0</div><div class="stat-lbl">puntos</div></div>
+        <div><div class="stat-num" id="stat-aciertos" style="color:#1e3a8a">0/8</div><div class="stat-lbl">aciertos</div></div>
       </div>
-      <div>
-        <div class="puntuacion-grande" id="aciertos-finales">0/8</div>
-        <div class="puntuacion-label">respuestas correctas</div>
-      </div>
+      <div class="estrellas" id="estrellas">⭐</div>
+      <div class="diploma-footer">Emitido hoy · Campaña de Prevención · Colombia 🇨🇴</div>
     </div>
 
-    <div class="estrellas" id="estrellas-display">⭐⭐⭐</div>
+    <h3 style="font-size:18px;margin-bottom:14px">Logros desbloqueados</h3>
+    <div class="logros-grid">
+      <div class="logro"><div class="lic">🔍</div><strong>Ojo entrenado</strong><span>Reconoces las señales</span></div>
+      <div class="logro"><div class="lic">🧠</div><strong>Mente informada</strong><span>Entiendes el 'por qué'</span></div>
+      <div class="logro"><div class="lic">💬</div><strong>Voz conectada</strong><span>Sabes abrir el diálogo</span></div>
+      <div class="logro"><div class="lic">🛡️</div><strong>Padre activo</strong><span>Tienes herramientas</span></div>
+    </div>
 
-    <div style="font-size:0.8rem; color:var(--gris); border-top:1px solid #E5E7EB; padding-top:16px; margin-top:8px;">
-      Emitido hoy · Campaña de Prevención · Colombia
+    <div class="mensaje-final">
+      <p>"La prevención no empieza cuando descubres el problema. Empieza en cada conversación cotidiana."</p>
+      <p>Tu vínculo con tu hijo/a es el mayor factor protector que existe. Esta semana: abre una conversación, establece el código de rescate y guarda la Línea 106 en tu celular.</p>
+    </div>
+
+    <div class="grad-btns">
+      <button class="btn-grad" onclick="reiniciar()" style="background:linear-gradient(135deg,#1e3a8a,#4a5bc4);color:#fff;box-shadow:0 5px 16px rgba(30,58,138,.35)">🔄 Volver a empezar</button>
+      <button class="btn-grad" onclick="compartir()" style="background:linear-gradient(135deg,#1a7a4a,#0a5c36);color:#fff;box-shadow:0 5px 16px rgba(26,122,74,.35)">📤 Compartir logro</button>
     </div>
   </div>
-
-  <!-- LOGROS -->
-  <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; margin-bottom:20px;">Tus logros desbloqueados</h3>
-
-  <div class="logros-grid">
-    <div class="logro">
-      <span class="logro-icon">🔍</span>
-      <h4>Ojo entrenado</h4>
-      <p>Sabes reconocer las señales</p>
-    </div>
-    <div class="logro">
-      <span class="logro-icon">🧠</span>
-      <h4>Mente informada</h4>
-      <p>Entiendes el "por qué"</p>
-    </div>
-    <div class="logro">
-      <span class="logro-icon">💬</span>
-      <h4>Voz conectada</h4>
-      <p>Sabes cómo abrir el diálogo</p>
-    </div>
-    <div class="logro">
-      <span class="logro-icon">🛡️</span>
-      <h4>Padre/Madre activo</h4>
-      <p>Tienes herramientas de prevención</p>
-    </div>
-  </div>
-
-  <!-- MENSAJE FINAL -->
-  <div style="background:linear-gradient(135deg,#1a2744,#1A7A4A); border-radius:24px; padding:40px 32px; margin:0 auto 40px; max-width:600px; color:white; text-align:left;">
-    <p style="font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; margin-bottom:16px; line-height:1.3;">
-      "La prevención no empieza cuando descubres el problema. Empieza en cada conversación cotidiana."
-    </p>
-    <p style="font-size:0.9rem; opacity:0.8; line-height:1.7;">
-      Completar este entrenamiento es un primer paso. El verdadero trabajo es continuar: hablar con tu hijo/a esta semana, conocer a sus amigos, estar presente. Tu vínculo es el mayor factor protector que existe.
-    </p>
-  </div>
-
-  <!-- PRÓXIMOS PASOS -->
-  <div style="max-width:600px; margin:0 auto 40px; text-align:left;">
-    <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; margin-bottom:16px; text-align:center;">Tus próximos pasos esta semana</h3>
-    <div class="recurso-item">
-      <div class="recurso-icon-box verde">1</div>
-      <div class="recurso-txt">
-        <h4>Abre una conversación sin razón aparente</h4>
-        <p>"¿Cómo van las fiestas con tus amigos?" — sin acusar, solo para estar presente.</p>
-      </div>
-    </div>
-    <div class="recurso-item">
-      <div class="recurso-icon-box azul">2</div>
-      <div class="recurso-txt">
-        <h4>Establece el código de rescate</h4>
-        <p>Un emoji o mensaje acordado que signifique: "Ven a buscarme, sin preguntas."</p>
-      </div>
-    </div>
-    <div class="recurso-item">
-      <div class="recurso-icon-box rojo">3</div>
-      <div class="recurso-txt">
-        <h4>Guarda la Línea 106 en tu celular</h4>
-        <p>Salud Mental, gratuita 24/7. Para cuando la necesites — o para compartirla.</p>
-      </div>
-    </div>
-  </div>
-
-  <button class="btn-compartir" onclick="reiniciar()">🔄 Volver a empezar</button>
-  <button class="btn-compartir" onclick="compartir()" style="background:linear-gradient(135deg,var(--verde),#0A5C36);">📤 Compartir logro</button>
-
 </div>
 
 <script>
-  // ── ESTADO ──
-  let pts = 0;
-  let aciertos = 0;
-  let nivelActual = 0;
-  let quizzesRespondidos = {};
-  let nombre = '';
+// ── ESTADO ──
+var pts = 0;
+var aciertos = 0;
+var respondidas = {};
+var nombre = '';
+var pantallaActual = 'pantalla-inicio';
 
-  const ptsPorAcierto = 100;
-  const totalPreguntas = 8;
+// ── MOSTRAR/OCULTAR ──
+function mostrar(id) {
+  document.getElementById(id).classList.remove('oculto');
+}
+function ocultar(id) {
+  document.getElementById(id).classList.add('oculto');
+}
 
-  // ── INICIAR ──
-  function iniciarEntrenamiento() {
-    nombre = document.getElementById('nombre-padre').value.trim();
-    document.getElementById('pantalla-inicio').style.display = 'none';
-    document.getElementById('barra-progreso').style.display = 'block';
-    irNivel(1);
+// ── COMENZAR ──
+function comenzar() {
+  nombre = document.getElementById('inp-nombre').value.trim();
+  ocultar('pantalla-inicio');
+  mostrar('barra-wrap');
+  irA('nivel-1', true);
+}
+
+// ── NAVEGACIÓN ──
+function irA(destino, mostrarBarra) {
+  ocultar(pantallaActual);
+  if (destino === 'pantalla-inicio') {
+    ocultar('barra-wrap');
+    mostrar('pantalla-inicio');
+  } else {
+    mostrar('barra-wrap');
+    mostrar(destino);
+    if (destino === 'graduacion') mostrarGraduacion();
+    else actualizarBarra(destino);
   }
+  pantallaActual = destino;
+  window.scrollTo(0, 0);
+}
 
-  // ── NAVEGACIÓN ──
-  function irNivel(n) {
-    document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
-    document.getElementById('seccion-graduacion').classList.remove('activa');
-    document.getElementById('seccion-graduacion').style.display = 'none';
+// ── BARRA ──
+function actualizarBarra(destino) {
+  var labels = {'nivel-1':'Nivel 1 de 4 · Reconocer señales','nivel-2':'Nivel 2 de 4 · Entender por qué','nivel-3':'Nivel 3 de 4 · Cómo hablar','nivel-4':'Nivel 4 de 4 · Prevenir y actuar','graduacion':'¡Completado!'};
+  document.getElementById('barra-label').textContent = labels[destino] || '';
+  document.getElementById('barra-pts').textContent = pts + ' pts';
+  var pct = Math.round((pts / 800) * 100);
+  document.getElementById('barra-fill').style.width = pct + '%';
+}
 
-    const sec = document.getElementById('nivel-' + n);
-    if (sec) {
-      sec.classList.add('activa');
-      nivelActual = n;
-      actualizarBarra();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+// ── QUIZ ──
+function responder(qId, boton, esCorrecta, feedback) {
+  if (respondidas[qId]) return;
+  respondidas[qId] = true;
 
-      const labels = ['Nivel 1: Reconocer', 'Nivel 2: Entender', 'Nivel 3: Cómo hablar', 'Nivel 4: Prevenir'];
-      document.getElementById('nivel-actual-label').textContent = labels[n - 1] + ' · ' + n + ' de 4';
-    }
-  }
+  // deshabilitar todos los botones de este quiz
+  var contenedor = document.getElementById('opc-' + qId);
+  var botones = contenedor.querySelectorAll('.opcion');
+  botones.forEach(function(b) { b.disabled = true; });
 
-  function irGraduacion() {
-    document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
-    const grad = document.getElementById('seccion-graduacion');
-    grad.style.display = 'block';
-    grad.classList.add('activa');
-    mostrarDiploma();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // actualizar barra a 100%
-    document.getElementById('barra-fill').style.width = '100%';
-    document.getElementById('nivel-actual-label').textContent = '¡Completado!';
-    document.getElementById('pts-label').textContent = pts + ' pts';
-  }
-
-  // ── QUIZZES ──
-  function responder(qId, btn, esCorrecta, feedback) {
-    if (quizzesRespondidos[qId]) return;
-    quizzesRespondidos[qId] = true;
-
-    const tarjeta = document.getElementById(qId);
-    const opciones = tarjeta.querySelectorAll('.opcion');
-    const fb = document.getElementById('fb-' + qId);
-
-    opciones.forEach(op => op.classList.add('deshabilitada'));
-
-    if (esCorrecta) {
-      btn.classList.add('correcta');
-      pts += ptsPorAcierto;
-      aciertos++;
-      actualizarBarra();
-      mostrarToast('¡Correcto! +' + ptsPorAcierto + ' puntos 🎉');
-      fb.textContent = feedback;
-      fb.className = 'feedback-quiz show ok';
-    } else {
-      btn.classList.add('incorrecta');
-      fb.textContent = '✗ ' + feedback;
-      fb.className = 'feedback-quiz show mal';
-      mostrarToast('Casi — sigue intentando en el siguiente nivel.');
-    }
-
-    document.getElementById('pts-label').textContent = pts + ' pts';
-  }
-
-  // ── BARRA ──
-  function actualizarBarra() {
-    const maxPts = totalPreguntas * ptsPorAcierto;
-    const pct = Math.min((pts / maxPts) * 100, 100);
-    document.getElementById('barra-fill').style.width = pct + '%';
-    document.getElementById('pts-label').textContent = pts + ' pts';
-  }
-
-  // ── DIPLOMA ──
-  function mostrarDiploma() {
-    const nombreDisplay = nombre ? nombre : 'Padre/Madre comprometido/a';
-    document.getElementById('diploma-nombre').textContent = nombreDisplay;
-    document.getElementById('puntos-finales').textContent = pts;
-    document.getElementById('aciertos-finales').textContent = aciertos + '/' + totalPreguntas;
-
-    let estrellas = '⭐';
-    if (aciertos >= 4) estrellas = '⭐⭐';
-    if (aciertos >= 6) estrellas = '⭐⭐⭐';
-    if (aciertos === 8) estrellas = '⭐⭐⭐⭐⭐ · ¡Perfecto!';
-    document.getElementById('estrellas-display').textContent = estrellas;
-  }
-
-  // ── TOAST ──
-  function mostrarToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('visible');
-    setTimeout(() => t.classList.remove('visible'), 3000);
-  }
-
-  // ── COMPARTIR ──
-  function compartir() {
-    const texto = `🎓 Completé el entrenamiento para padres "Guiar a tu hijo/a empieza con saber" con ${pts} puntos y ${aciertos}/${totalPreguntas} aciertos. ¡Una herramienta valiosa para familias colombianas!`;
-    if (navigator.share) {
-      navigator.share({ title: 'Escuela de Padres Colombia', text: texto });
-    } else {
-      navigator.clipboard.writeText(texto).then(() => mostrarToast('Texto copiado al portapapeles ✓'));
-    }
-  }
-
-  // ── REINICIAR ──
-  function reiniciar() {
-    pts = 0; aciertos = 0; nivelActual = 0; quizzesRespondidos = {};
-    document.querySelectorAll('.opcion').forEach(o => {
-      o.classList.remove('correcta', 'incorrecta', 'deshabilitada');
+  // marcar respuesta
+  if (esCorrecta) {
+    boton.classList.add('correcta');
+    pts += 100;
+    aciertos += 1;
+    mostrarToast('¡Correcto! +100 puntos 🎉');
+  } else {
+    boton.classList.add('incorrecta');
+    // resaltar la correcta
+    botones.forEach(function(b) {
+      if (b.getAttribute('onclick').indexOf(',true,') !== -1) {
+        b.classList.add('correcta');
+      }
     });
-    document.querySelectorAll('.feedback-quiz').forEach(f => {
-      f.className = 'feedback-quiz';
-    });
-    document.getElementById('barra-fill').style.width = '0%';
-    document.getElementById('pts-label').textContent = '0 pts';
-    document.getElementById('seccion-graduacion').style.display = 'none';
-    document.getElementById('seccion-graduacion').classList.remove('activa');
-    document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
-    document.getElementById('barra-progreso').style.display = 'none';
-    document.getElementById('pantalla-inicio').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    mostrarToast('Casi — revisa la respuesta correcta ↑');
   }
+
+  // mostrar feedback
+  var fb = document.getElementById('fb-' + qId);
+  fb.textContent = feedback;
+  fb.className = 'feedback ' + (esCorrecta ? 'ok' : 'mal');
+
+  // actualizar barra
+  document.getElementById('barra-pts').textContent = pts + ' pts';
+  var pct = Math.round((pts / 800) * 100);
+  document.getElementById('barra-fill').style.width = pct + '%';
+}
+
+// ── GRADUACIÓN ──
+function mostrarGraduacion() {
+  document.getElementById('diploma-nombre').textContent = nombre || 'Padre / Madre comprometido/a';
+  document.getElementById('stat-pts').textContent = pts;
+  document.getElementById('stat-aciertos').textContent = aciertos + '/8';
+  var e = '⭐';
+  if (aciertos >= 2) e = '⭐⭐';
+  if (aciertos >= 4) e = '⭐⭐⭐';
+  if (aciertos >= 6) e = '⭐⭐⭐⭐';
+  if (aciertos === 8) e = '⭐⭐⭐⭐⭐ ¡Perfecto!';
+  document.getElementById('estrellas').textContent = e;
+  document.getElementById('barra-label').textContent = '¡Completado!';
+  document.getElementById('barra-fill').style.width = '100%';
+}
+
+// ── REINICIAR ──
+function reiniciar() {
+  pts = 0; aciertos = 0; respondidas = {};
+  // limpiar quizzes
+  document.querySelectorAll('.opcion').forEach(function(b) {
+    b.classList.remove('correcta','incorrecta');
+    b.disabled = false;
+  });
+  document.querySelectorAll('.feedback').forEach(function(f) {
+    f.textContent = '';
+    f.className = 'feedback oculto';
+  });
+  document.getElementById('barra-fill').style.width = '0%';
+  document.getElementById('barra-pts').textContent = '0 pts';
+  ocultar('graduacion');
+  ocultar('barra-wrap');
+  mostrar('pantalla-inicio');
+  pantallaActual = 'pantalla-inicio';
+  window.scrollTo(0, 0);
+}
+
+// ── COMPARTIR ──
+function compartir() {
+  var texto = '🎓 Completé la Escuela de Padres Colombia con ' + pts + ' pts y ' + aciertos + '/8 aciertos. ¡Una herramienta valiosa para familias! 🇨🇴';
+  if (navigator.share) {
+    navigator.share({ title: 'Escuela de Padres Colombia', text: texto });
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(texto).then(function() { mostrarToast('Texto copiado al portapapeles ✓'); });
+  } else {
+    mostrarToast('Comparte tu logro en redes sociales');
+  }
+}
+
+// ── TOAST ──
+var toastTimer;
+function mostrarToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function() { t.classList.remove('show'); }, 2800);
+}
 </script>
 </body>
 </html>
